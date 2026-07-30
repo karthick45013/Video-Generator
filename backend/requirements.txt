@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+diffusers>=0.30.0
+transformers
+accelerate
+torch
+torchvision
+imageio[ffmpeg]
+python-multipart
+sse-starlette
+huggingface_hub
+sentencepiece
