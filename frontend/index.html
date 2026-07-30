@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wan2.1 — Text to Video Generator</title>
+  <meta name="description" content="Generate stunning AI videos from text using Wan2.1-T2V-1.3B locally — no limits." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Wan<span class="accent">2.1</span> T2V</span>
+      </div>
+      <p class="tagline">Text → Video &nbsp;·&nbsp; No Limits &nbsp;·&nbsp; Runs Locally</p>
+    </header>
+
+    <!-- Main card -->
+    <main class="card">
+
+      <!-- Prompt area -->
+      <div class="field">
+        <label for="prompt">✍️ &nbsp;Prompt</label>
+        <textarea
+          id="prompt"
+          rows="4"
+          placeholder="A majestic dragon soaring over snow-capped mountains, golden hour lighting, cinematic realism…"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label for="negative-prompt">🚫 &nbsp;Negative Prompt <span class="optional">(optional)</span></label>
+        <textarea
+          id="negative-prompt"
+          rows="2"
+          placeholder="low quality, blurry, distorted, watermark"
+        >low quality, blurry, distorted, watermark</textarea>
+      </div>
+
+      <!-- Settings grid -->
+      <div class="settings-grid">
+
+        <div class="setting">
+          <label for="num-frames">🎞 Frames</label>
+          <input type="number" id="num-frames" value="33" min="17" max="257" step="8" />
+          <span class="hint">33 = safer default for local generation</span>
+        </div>
+
+        <div class="setting">
+          <label for="width">↔ Width</label>
+          <select id="width">
+            <option value="480" selected>480</option>
+            <option value="640">640</option>
+            <option value="848">848</option>
+            <option value="1280">1280</option>
+          </select>
+        </div>
+
+        <div class="setting">
+          <label for="height">↕ Height</label>
+          <select id="height">
+            <option value="272" selected>272</option>
+            <option value="480">480</option>
+            <option value="640">640</option>
+          </select>
+        </div>
+
+        <div class="setting">
+          <label for="steps">🔁 Steps</label>
+          <input type="number" id="steps" value="20" min="10" max="100" step="5" />
+          <span class="hint">More = better quality</span>
+        </div>
+
+        <div class="setting">
+          <label for="guidance">🎯 CFG Scale</label>
+          <input type="number" id="guidance" value="7.5" min="1" max="20" step="0.5" />
+          <span class="hint">Prompt adherence</span>
+        </div>
+
+        <div class="setting">
+          <label for="fps">📽 FPS</label>
+          <input type="number" id="fps" value="16" min="8" max="30" step="1" />
+        </div>
+
+        <div class="setting">
+          <label for="seed">🌱 Seed</label>
+          <input type="number" id="seed" placeholder="Random" />
+        </div>
+
+      </div>
+
+      <!-- Generate button -->
+      <button id="generate-btn" class="btn-generate" onclick="generateVideo()">
+        <span id="btn-text">🎬 &nbsp;Generate Video</span>
+        <span id="btn-spinner" class="spinner hidden"></span>
+      </button>
+
+      <!-- Progress section -->
+      <div id="progress-section" class="progress-section hidden">
+        <div class="progress-header">
+          <span id="progress-label">Initialising…</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progress-bar" class="progress-bar-fill" style="width:0%"></div>
+        </div>
+        <p id="progress-sub" class="progress-sub">Please wait — the model is generating your video frame by frame.</p>
+      </div>
+
+      <!-- Error box -->
+      <div id="error-box" class="error-box hidden">
+        <span>⚠️ </span><span id="error-msg"></span>
+      </div>
+
+    </main>
+
+    <!-- Video result -->
+    <section id="result-section" class="result-section hidden">
+      <h2 class="result-title">🎉 Your Video</h2>
+      <video id="video-player" class="video-player" controls autoplay loop muted playsinline></video>
+      <div class="result-actions">
+        <a id="download-link" class="btn-download" download>⬇️ &nbsp;Download MP4</a>
+        <button class="btn-reset" onclick="resetForm()">🔄 &nbsp;Generate Another</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      Powered by <strong>Wan-AI/Wan2.1-T2V-1.3B-Diffusers</strong> · Runs 100% locally
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
